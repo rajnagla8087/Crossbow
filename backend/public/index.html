@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Crossbow Translator - Break language barriers with instant text translation, real-time voice speech synthesis, two-way conversation, linguistic dictionary, and interactive flashcard quizzes.">
+  <title>Crossbow Translator — Break Language Barriers</title>
+  
+  <!-- PWA Manifest & App Icons -->
+  <link rel="manifest" href="/manifest.json">
+  <link rel="icon" type="image/svg+xml" href="/icon.svg">
+  <link rel="apple-touch-icon" href="/icon-192.png">
+  <meta name="theme-color" content="#00f2fe">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="Crossbow">
+
+  <!-- Modern Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="dark-theme">
+  <!-- Dynamic Glow Backgrounds -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <!-- Main Container -->
+  <div class="app-layout">
+    
+    <!-- Header / Navbar -->
+    <header class="app-header">
+      <div class="brand-section">
+        <div class="brand-logo-container">
+          <svg class="crossbow-icon" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="neonGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00f2fe" />
+                <stop offset="100%" stop-color="#4facfe" />
+              </linearGradient>
+              <filter id="neonGlow" x="-20%" y="-20%" width="140%" height="140%">
+                <feGaussianBlur stdDeviation="3" result="blur" />
+                <feMerge>
+                  <feMergeNode in="blur" />
+                  <feMergeNode in="SourceGraphic" />
+                </feMerge>
+              </filter>
+            </defs>
+            <!-- Crossbow Bow Arc -->
+            <path d="M8 32 C12 14, 36 14, 40 32" stroke="url(#neonGradient)" stroke-width="3.5" stroke-linecap="round" filter="url(#neonGlow)"/>
+            <!-- Bowstring -->
+            <path d="M8 32 L24 40 L40 32" stroke="#38bdf8" stroke-width="1.8" stroke-dasharray="3 2" opacity="0.8"/>
+            <!-- Arrow / Bolt Shaft -->
+            <line x1="24" y1="40" x2="24" y2="8" stroke="#00f2fe" stroke-width="3" stroke-linecap="round" filter="url(#neonGlow)"/>
+            <!-- Arrow Head / Spear -->
+            <polygon points="24,4 19,14 24,11 29,14" fill="#00f2fe" filter="url(#neonGlow)"/>
+            <!-- Crosshairs Accent -->
+            <circle cx="24" cy="24" r="8" stroke="rgba(56, 189, 248, 0.4)" stroke-width="1.5" stroke-dasharray="2 3"/>
+          </svg>
+        </div>
+        <div class="brand-titles">
+          <h1 class="brand-title">Crossbow <span class="highlight">Translator</span></h1>
+          <p class="brand-tagline">Break Language Barriers</p>
+        </div>
+      </div>
+
+      <!-- Header Meta & Controls -->
+      <div class="header-controls">
+        <button id="pwa-install-btn" class="pwa-install-btn" title="Install Crossbow PWA App on your PC or phone" style="display: none;">
+          <span class="pwa-install-icon">📲</span>
+          <span class="pwa-install-text">Install App</span>
+        </button>
+        <div class="status-indicator" id="backend-status-pill" title="Backend Server Connectivity">
+          <span class="status-dot"></span>
+          <span class="status-text" id="status-label">Checking Server...</span>
+        </div>
+        <button id="theme-toggle-btn" class="icon-action-btn" title="Toggle Light/Dark Theme" aria-label="Toggle Theme">
+          <span id="theme-icon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <nav class="feature-nav" aria-label="Feature Tabs">
+      <button class="nav-tab active" data-tab="translate" id="nav-tab-translate">
+        <span class="tab-icon">🌐</span>
+        <span class="tab-text">Text Translate</span>
+      </button>
+      <button class="nav-tab" data-tab="conversation" id="nav-tab-conversation">
+        <span class="tab-icon">💬</span>
+        <span class="tab-text">Conversation</span>
+      </button>
+      <button class="nav-tab" data-tab="dictionary" id="nav-tab-dictionary">
+        <span class="tab-icon">📖</span>
+        <span class="tab-text">Dictionary</span>
+      </button>
+      <button class="nav-tab" data-tab="practice" id="nav-tab-practice">
+        <span class="tab-icon">🎓</span>
+        <span class="tab-text">Flashcards & Quiz</span>
+      </button>
+      <button class="nav-tab" data-tab="ocr" id="nav-tab-ocr">
+        <span class="tab-icon">📷</span>
+        <span class="tab-text">OCR Scanner</span>
+      </button>
+      <button class="nav-tab" data-tab="history" id="nav-tab-history">
+        <span class="tab-icon">⭐</span>
+        <span class="tab-text">History & Saved</span>
+        <span class="badge" id="history-badge">0</span>
+      </button>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="app-main">
+      
+      <!-- TAB 1: TEXT TRANSLATION -->
+      <section class="tab-panel active" id="panel-translate">
+        
+        <!-- Language Bar -->
+        <div class="language-bar glass-panel">
+          <div class="lang-selector-group">
+            <label for="source-lang-select" class="visually-hidden">Source Language</label>
+            <select id="source-lang-select" class="lang-select">
+              <option value="auto">🌐 Auto Detect</option>
+              <!-- Populated by JS -->
+            </select>
+          </div>
+
+          <button id="swap-lang-btn" class="swap-btn" title="Swap Languages (Reverse)" aria-label="Swap Languages">
+            <svg class="swap-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M7 16V4M7 4L3 8M7 4L11 8M17 8V20M17 20L21 16M17 20L13 16" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+
+          <div class="lang-selector-group">
+            <label for="target-lang-select" class="visually-hidden">Target Language</label>
+            <select id="target-lang-select" class="lang-select">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Quick Language Chips -->
+        <div class="quick-chips-wrapper">
+          <span class="chips-label">Popular Targets:</span>
+          <div class="quick-chips" id="quick-target-chips">
+            <button class="chip" data-lang="es">🇪🇸 Spanish</button>
+            <button class="chip" data-lang="fr">🇫🇷 French</button>
+            <button class="chip" data-lang="de">🇩🇪 German</button>
+            <button class="chip" data-lang="hi">🇮🇳 Hindi</button>
+            <button class="chip" data-lang="ja">🇯🇵 Japanese</button>
+            <button class="chip" data-lang="zh">🇨🇳 Chinese</button>
+            <button class="chip" data-lang="ar">🇸🇦 Arabic</button>
+            <button class="chip" data-lang="pt">🇧🇷 Portuguese</button>
+          </div>
+        </div>
+
+        <!-- Translation Dual Workspace -->
+        <div class="translation-workspace">
+          
+          <!-- Source Input Card -->
+          <div class="trans-card glass-panel source-card">
+            <div class="card-toolbar">
+              <span class="card-title-tag" id="detected-lang-badge">Input Text</span>
+              <div class="toolbar-actions">
+                <button id="paste-btn" class="mini-btn" title="Paste text from clipboard">
+                  📋 Paste
+                </button>
+                <button id="clear-btn" class="mini-btn" title="Clear text">
+                  ✕ Clear
+                </button>
+              </div>
+            </div>
+
+            <textarea 
+              id="source-textarea" 
+              class="trans-textarea" 
+              placeholder="Type, paste, or speak something to translate... (e.g. 'Hello, how can I help you today?')"
+              maxlength="5000"
+              spellcheck="false"
+            ></textarea>
+
+            <!-- Bottom Bar: Mic, Waveform, Char Count -->
+            <div class="card-footer">
+              <div class="mic-container">
+                <button id="mic-btn" class="mic-action-btn" title="Speak to translate (Voice Input)" aria-label="Voice Input">
+                  <span class="mic-icon">🎙️</span>
+                </button>
+                <div class="audio-equalizer" id="audio-equalizer">
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                  <span class="eq-bar"></span>
+                </div>
+                <span class="mic-status-text" id="mic-status-label">Click mic to speak</span>
+              </div>
+
+              <div class="char-count">
+                <span id="char-counter">0</span> / 5000
+              </div>
+            </div>
+          </div>
+
+          <!-- Central Translate Action Button (Mobile & Desktop) -->
+          <div class="center-action-row">
+            <button id="execute-translate-btn" class="primary-glow-btn">
+              <span class="btn-arrow-icon">🏹</span>
+              <span class="btn-label">Translate Now</span>
+              <span class="shortcut-hint">Ctrl + Enter</span>
+            </button>
+          </div>
+
+          <!-- Target Output Card -->
+          <div class="trans-card glass-panel target-card">
+            <div class="card-toolbar">
+              <span class="card-title-tag target-tag" id="target-card-header">Translation Result</span>
+              <span class="provider-pill" id="provider-badge">Ready</span>
+            </div>
+
+            <div class="output-content-area" id="output-container">
+              <p class="placeholder-text" id="output-placeholder">Your high-accuracy translation will appear here instantly...</p>
+              <div class="translated-result-text" id="translated-text" style="display: none;"></div>
+            </div>
+
+            <!-- Output Action Footer -->
+            <div class="card-footer output-footer">
+              <div class="output-action-btns">
+                <button id="speak-output-btn" class="action-btn" title="Listen to translation (TTS)" disabled>
+                  🔊 Listen
+                </button>
+                <button id="copy-output-btn" class="action-btn" title="Copy to clipboard" disabled>
+                  📋 Copy
+                </button>
+                <button id="save-fav-btn" class="action-btn" title="Save to Favorites" disabled>
+                  ⭐ Bookmark
+                </button>
+                <button id="share-output-btn" class="action-btn" title="Share Translation" disabled>
+                  📤 Share
+                </button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAB 2: TWO-WAY CONVERSATION MODE -->
+      <section class="tab-panel" id="panel-conversation">
+        <div class="conversation-container glass-panel">
+          <div class="conversation-header">
+            <div>
+              <h2 class="sub-heading">Two-Way Live Conversation</h2>
+              <p class="sub-desc">Split-screen bilingual dialogue. Select languages for both speakers, tap the mic, and speak naturally.</p>
+            </div>
+            <div class="convo-top-actions">
+              <button id="clear-convo-btn" class="mini-btn">🗑️ Clear Dialogue</button>
+              <button id="export-convo-btn" class="mini-btn">📥 Export Chat</button>
+            </div>
+          </div>
+
+          <!-- Speaker Selectors -->
+          <div class="speakers-config-grid">
+            <div class="speaker-config-card speaker-1-card">
+              <div class="speaker-tag">👤 Speaker A</div>
+              <select id="speaker1-lang-select" class="lang-select">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+
+            <div class="convo-arrow">⇄</div>
+
+            <div class="speaker-config-card speaker-2-card">
+              <div class="speaker-tag">👥 Speaker B</div>
+              <select id="speaker2-lang-select" class="lang-select">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+          </div>
+
+          <!-- Conversation Chat Timeline -->
+          <div class="chat-timeline" id="chat-timeline">
+            <div class="empty-chat-state" id="empty-chat-state">
+              <div class="empty-icon">💬</div>
+              <p>No messages yet. Speaker A or Speaker B can tap their mic below or type a message to start!</p>
+            </div>
+          </div>
+
+          <!-- Conversation Interactive Controls -->
+          <div class="conversation-mic-bar">
+            <!-- Speaker 1 Mic & Input -->
+            <div class="speaker-dock speaker-dock-left">
+              <div class="dock-input-row">
+                <input type="text" id="speaker1-input" class="convo-input" placeholder="Type for Speaker A... (Enter to send)">
+                <button id="speaker1-send-btn" class="mini-send-btn">➤</button>
+              </div>
+              <button id="speaker1-mic-btn" class="big-mic-btn mic-left">
+                <span>🎙️ Speak as Speaker A</span>
+              </button>
+            </div>
+
+            <!-- Speaker 2 Mic & Input -->
+            <div class="speaker-dock speaker-dock-right">
+              <div class="dock-input-row">
+                <input type="text" id="speaker2-input" class="convo-input" placeholder="Type for Speaker B... (Enter to send)">
+                <button id="speaker2-send-btn" class="mini-send-btn">➤</button>
+              </div>
+              <button id="speaker2-mic-btn" class="big-mic-btn mic-right">
+                <span>🎙️ Speak as Speaker B</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: LINGUISTIC DICTIONARY -->
+      <section class="tab-panel" id="panel-dictionary">
+        <div class="dictionary-container glass-panel">
+          <div class="dictionary-header">
+            <h2 class="sub-heading">Lexical Dictionary & Phonetics</h2>
+            <p class="sub-desc">Powered by Free Dictionary API with comprehensive definitions, audio pronunciation, and example sentences.</p>
+            
+            <form id="dictionary-search-form" class="dictionary-search-box">
+              <input 
+                type="text" 
+                id="dict-search-input" 
+                class="dict-input" 
+                placeholder="Search any English word (e.g. 'serendipity', 'eloquent', 'epiphany')..."
+                required
+              >
+              <button type="submit" class="primary-glow-btn search-btn">
+                <span>🔍 Search</span>
+              </button>
+            </form>
+
+            <!-- Quick Word Suggestions -->
+            <div class="quick-words-row">
+              <span class="chips-label">Try words:</span>
+              <button class="word-chip" data-word="resilience">resilience</button>
+              <button class="word-chip" data-word="luminous">luminous</button>
+              <button class="word-chip" data-word="velocity">velocity</button>
+              <button class="word-chip" data-word="harmony">harmony</button>
+              <button class="word-chip" data-word="metamorphosis">metamorphosis</button>
+            </div>
+          </div>
+
+          <!-- Dictionary Result Container -->
+          <div id="dict-result-view" class="dict-result-view">
+            <div class="dict-placeholder" id="dict-placeholder">
+              <span>📖</span>
+              <p>Type a word above to explore phonetics, definitions, parts of speech, and synonyms.</p>
+            </div>
+            
+            <div id="dict-content" class="dict-content" style="display: none;">
+              <!-- Rendered via JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: FLASHCARDS & QUIZ -->
+      <section class="tab-panel" id="panel-practice">
+        <div class="practice-container glass-panel">
+          
+          <div class="practice-header">
+            <div>
+              <h2 class="sub-heading">Interactive Flashcards & Quiz</h2>
+              <p class="sub-desc">Master vocabulary with 3D animated flip cards and instant feedback multiple-choice questions.</p>
+            </div>
+
+            <!-- Gamification Stats -->
+            <div class="gamify-stats">
+              <div class="stat-pill">
+                <span class="stat-icon">🔥</span>
+                <span class="stat-val" id="streak-counter">3 Day Streak</span>
+              </div>
+              <div class="stat-pill">
+                <span class="stat-icon">🏆</span>
+                <span class="stat-val" id="score-counter">Score: 0</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Sub-modes: Flashcards or Quiz -->
+          <div class="sub-mode-toggle">
+            <button id="mode-flashcards-btn" class="sub-mode-btn active">🎴 3D Flashcards</button>
+            <button id="mode-quiz-btn" class="sub-mode-btn">📝 Multiple Choice Quiz</button>
+          </div>
+
+          <!-- SUB-VIEW 1: 3D FLASHCARDS -->
+          <div id="flashcards-subview" class="practice-subview">
+            <div class="flashcard-deck-controls">
+              <span class="deck-counter" id="card-counter-label">Card 1 / 10</span>
+              <div class="difficulty-picker">
+                <label for="flashcard-diff">Level:</label>
+                <select id="flashcard-diff" class="mini-select">
+                  <option value="beginner">Beginner</option>
+                  <option value="intermediate" selected>Intermediate</option>
+                  <option value="advanced">Advanced</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- The 3D Flip Card -->
+            <div class="flashcard-3d-scene">
+              <div class="flashcard-3d-card" id="flashcard-card">
+                <!-- Card Front -->
+                <div class="card-face card-front">
+                  <div class="face-tag">Word (Source)</div>
+                  <div class="word-term" id="fc-front-term">Serendipity</div>
+                  <div class="word-pronounce" id="fc-front-pronounce">/ˌser.ənˈdɪp.ə.ti/</div>
+                  <button class="listen-audio-btn" id="fc-listen-front" title="Pronounce word">🔊</button>
+                  <div class="tap-hint">Tap card or spacebar to flip ↷</div>
+                </div>
+
+                <!-- Card Back -->
+                <div class="card-face card-back">
+                  <div class="face-tag">Meaning & Translation</div>
+                  <div class="word-meaning" id="fc-back-meaning">Finding something good without looking for it; happy coincidence.</div>
+                  <div class="word-example" id="fc-back-example">"Finding my favorite book in an old attic was pure serendipity."</div>
+                  <div class="word-translated" id="fc-back-trans">🇪🇸 Español: <strong>Serendipia</strong></div>
+                  <div class="tap-hint">Tap to flip back ↶</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Card Navigation -->
+            <div class="flashcard-nav-buttons">
+              <button id="fc-prev-btn" class="nav-control-btn">← Previous</button>
+              <button id="fc-flip-btn" class="nav-control-btn flip-accent">Flip Card ↷</button>
+              <button id="fc-next-btn" class="nav-control-btn">Next →</button>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 2: QUIZ -->
+          <div id="quiz-subview" class="practice-subview" style="display: none;">
+            <div class="quiz-card glass-panel-inner" id="quiz-card-box">
+              <div class="quiz-progress-bar-container">
+                <div class="quiz-progress-bar" id="quiz-progress-bar" style="width: 20%;"></div>
+              </div>
+              <div class="quiz-header-row">
+                <span class="quiz-question-number" id="quiz-q-num">Question 1 of 5</span>
+                <span class="quiz-badge" id="quiz-category-badge">Vocabulary Mastery</span>
+              </div>
+              
+              <h3 class="quiz-prompt" id="quiz-prompt-text">What is the correct Spanish translation for "Knowledge"?</h3>
+
+              <div class="quiz-options-grid" id="quiz-options-container">
+                <!-- Rendered dynamically -->
+              </div>
+
+              <div class="quiz-feedback-box" id="quiz-feedback-box" style="display: none;">
+                <div class="feedback-msg" id="quiz-feedback-msg"></div>
+                <button id="quiz-next-q-btn" class="primary-glow-btn">Next Question →</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- TAB 5: OCR SCANNER -->
+      <section class="tab-panel" id="panel-ocr">
+        <div class="ocr-container glass-panel">
+          <div class="ocr-header">
+            <h2 class="sub-heading">Camera OCR & Document Scan</h2>
+            <p class="sub-desc">Extract foreign text from images, signs, menus, or documents and translate them immediately.</p>
+          </div>
+
+          <div class="ocr-body-grid">
+            <!-- Left: Image Preview & Dropzone -->
+            <div class="ocr-dropzone-box" id="ocr-dropzone">
+              <input type="file" id="ocr-file-input" accept="image/*" class="visually-hidden">
+              <div class="dropzone-content" id="dropzone-prompt">
+                <span class="dropzone-icon">🖼️</span>
+                <p class="dropzone-title">Drag & drop an image or click to upload</p>
+                <p class="dropzone-sub">Supports JPG, PNG, WEBP, Screenshots</p>
+                <button type="button" class="mini-btn dropzone-choose-btn" id="ocr-choose-btn">Choose File</button>
+              </div>
+              <div class="image-preview-wrapper" id="ocr-preview-wrapper" style="display: none;">
+                <img id="ocr-preview-img" alt="Scanned Document Preview">
+                <button id="ocr-clear-img-btn" class="img-clear-overlay-btn" title="Remove Image">✕</button>
+              </div>
+            </div>
+
+            <!-- Right: Extracted Text & Translate Action -->
+            <div class="ocr-output-box">
+              <div class="ocr-presets-row">
+                <span class="chips-label">Sample Presets:</span>
+                <button class="chip sample-ocr-btn" data-sample="spanish_sign">🇪🇸 Spanish Sign</button>
+                <button class="chip sample-ocr-btn" data-sample="french_menu">🇫🇷 French Menu</button>
+                <button class="chip sample-ocr-btn" data-sample="german_notice">🇩🇪 German Notice</button>
+              </div>
+
+              <div class="ocr-editor-header">
+                <label for="ocr-extracted-text">Extracted Text (Editable):</label>
+                <button id="ocr-extract-btn" class="mini-btn">⚡ Run OCR Scan</button>
+              </div>
+
+              <textarea id="ocr-extracted-text" class="ocr-textarea" placeholder="Extracted text will appear here. You can refine or edit it before translating..."></textarea>
+
+              <button id="ocr-send-translate-btn" class="primary-glow-btn">
+                <span>🏹 Translate Extracted Text</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 6: HISTORY & SAVED -->
+      <section class="tab-panel" id="panel-history">
+        <div class="history-container glass-panel">
+          <div class="history-header">
+            <div>
+              <h2 class="sub-heading">Translation History & Bookmarks</h2>
+              <p class="sub-desc">Persistent offline storage of your previous translations and favorite vocabulary.</p>
+            </div>
+            <div class="history-actions">
+              <button id="export-history-btn" class="mini-btn">📥 Export JSON</button>
+              <button id="clear-history-btn" class="mini-btn danger-btn">🗑️ Clear All</button>
+            </div>
+          </div>
+
+          <!-- Filter & Search Bar -->
+          <div class="history-filters-bar">
+            <div class="history-search-wrapper">
+              <input type="text" id="history-search-input" class="history-search-input" placeholder="Search saved translations...">
+            </div>
+            <div class="history-category-chips" id="history-cat-filters">
+              <button class="cat-chip active" data-cat="all">All</button>
+              <button class="cat-chip" data-cat="favorite">⭐ Favorites</button>
+              <button class="cat-chip" data-cat="Travel">✈️ Travel</button>
+              <button class="cat-chip" data-cat="Business">💼 Business</button>
+              <button class="cat-chip" data-cat="Food">🍲 Food</button>
+              <button class="cat-chip" data-cat="Social">💬 Social</button>
+            </div>
+          </div>
+
+          <!-- History List -->
+          <div class="history-list" id="history-list-view">
+            <div class="empty-history" id="empty-history-state">
+              <span>📜</span>
+              <p>No translation history yet. Your completed translations will be automatically saved here.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+      <div class="footer-content">
+        <p><strong>Crossbow Translator</strong> — Production Android Suite & Web Gateway. Multi-engine translation with free failover.</p>
+        <div class="footer-links">
+          <span class="footer-status-pill">● Port 3000 Active</span>
+          <span>100+ Languages</span>
+          <span>Offline Room / LocalStorage Sync</span>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Modal for Bookmark Category -->
+  <div class="modal-backdrop" id="bookmark-modal" style="display: none;">
+    <div class="modal-card glass-panel">
+      <div class="modal-header">
+        <h3>Save to Favorites</h3>
+        <button class="modal-close-btn" id="modal-close-btn">✕</button>
+      </div>
+      <div class="modal-body">
+        <label for="bookmark-category-select">Select Category:</label>
+        <select id="bookmark-category-select" class="lang-select">
+          <option value="General">🏷️ General</option>
+          <option value="Travel">✈️ Travel</option>
+          <option value="Business">💼 Business</option>
+          <option value="Food">🍲 Food & Dining</option>
+          <option value="Social">💬 Social & Chat</option>
+        </select>
+        <label for="bookmark-note-input" style="margin-top: 14px;">Personal Note (Optional):</label>
+        <input type="text" id="bookmark-note-input" class="convo-input" placeholder="e.g. Useful for hotel check-in">
+      </div>
+      <div class="modal-footer">
+        <button id="modal-save-confirm-btn" class="primary-glow-btn">Save Bookmark</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Logic -->
+  <script src="app.js"></script>
+</body>
+</html>

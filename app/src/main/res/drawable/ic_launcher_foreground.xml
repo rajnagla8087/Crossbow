@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <group
+        android:scaleX="0.65"
+        android:scaleY="0.65"
+        android:translateX="18.9"
+        android:translateY="18.9">
+        <!-- Crossbow Bow Arc -->
+        <path
+            android:strokeColor="#6366F1"
+            android:strokeWidth="5"
+            android:strokeLineCap="round"
+            android:pathData="M 24,70 C 26,36 46,20 84,24" />
+        <!-- Crossbow String -->
+        <path
+            android:strokeColor="#06B6D4"
+            android:strokeWidth="2.5"
+            android:strokeLineCap="round"
+            android:pathData="M 24,70 L 48,60 L 84,24" />
+        <!-- Speech Bubble Language Orb -->
+        <path
+            android:fillColor="#8B5CF6"
+            android:pathData="M 54,48 C 45.16,48 38,55.16 38,64 C 38,67.6 39.2,70.9 41.2,73.5 L 38,82 L 47.3,79 C 49.3,79.6 51.6,80 54,80 C 62.84,80 70,72.84 70,64 C 70,55.16 62.84,48 54,48 Z" />
+        <!-- Crossbow Arrow Bolt pointing through -->
+        <path
+            android:strokeColor="#F59E0B"
+            android:strokeWidth="4"
+            android:strokeLineCap="round"
+            android:pathData="M 32,76 L 76,32" />
+        <path
+            android:fillColor="#F59E0B"
+            android:pathData="M 76,28 L 84,24 L 80,32 Z" />
+    </group>
+</vector>

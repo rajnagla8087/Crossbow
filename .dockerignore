@@ -1,0 +1,12 @@
+node_modules
+npm-debug.log
+.env
+.git
+.gitignore
+.gradle
+build
+app/build
+*.apk
+*.aab
+.idea
+*.md

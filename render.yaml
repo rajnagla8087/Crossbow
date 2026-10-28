@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: crossbow-translator
+    env: node
+    plan: free
+    buildCommand: cd backend && npm install
+    startCommand: cd backend && node server.js
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: GOOGLE_TRANSLATE_API_KEY
+        sync: false
+      - key: DEEPL_API_KEY
+        sync: false

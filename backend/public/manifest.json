@@ -1,0 +1,62 @@
+{
+  "name": "Crossbow Translator",
+  "short_name": "Crossbow",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#080b11",
+  "theme_color": "#00f2fe",
+  "description": "Break language barriers with instant text translation, two-way conversation, linguistic dictionary, and 3D flashcards.",
+  "categories": ["productivity", "utilities", "education"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Text Translate",
+      "short_name": "Translate",
+      "description": "Instant translation across 100+ languages",
+      "url": "/#translate",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Two-Way Conversation",
+      "short_name": "Conversation",
+      "description": "Live bilingual conversation mode",
+      "url": "/#conversation",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Dictionary & Meanings",
+      "short_name": "Dictionary",
+      "description": "Phonetics, definitions, and pronunciation",
+      "url": "/#dictionary",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "3D Flashcards & Quiz",
+      "short_name": "Flashcards",
+      "description": "Master vocabulary with 3D flip cards",
+      "url": "/#practice",
+      "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }]
+    }
+  ]
+}

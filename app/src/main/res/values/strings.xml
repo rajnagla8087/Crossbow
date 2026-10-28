@@ -1,0 +1,52 @@
+<resources>
+    <string name="app_name">Crossbow Translator</string>
+    <string name="app_tagline">Break Language Barriers.</string>
+
+    <!-- Navigation -->
+    <string name="nav_home">Home</string>
+    <string name="nav_conversation">Chat</string>
+    <string name="nav_practice">Practice</string>
+    <string name="nav_favorites">Favorites</string>
+    <string name="nav_settings">Settings</string>
+
+    <!-- Feature Titles -->
+    <string name="feature_voice">Voice Translation</string>
+    <string name="feature_conversation">Conversation Mode</string>
+    <string name="feature_camera">Scan Text (OCR)</string>
+    <string name="feature_dictionary">Dictionary Meaning</string>
+    <string name="feature_practice">Language Practice</string>
+    <string name="feature_history">Translation History</string>
+
+    <!-- Actions -->
+    <string name="action_translate">Translate</string>
+    <string name="action_translating">Translating...</string>
+    <string name="action_swap_languages">Swap Languages</string>
+    <string name="action_copy">Copy</string>
+    <string name="action_copied">Copied to clipboard!</string>
+    <string name="action_paste">Paste</string>
+    <string name="action_pasted">Text pasted!</string>
+    <string name="action_clear">Clear</string>
+    <string name="action_share">Share</string>
+    <string name="action_speak">Listen</string>
+    <string name="action_favorite">Save to Favorites</string>
+    <string name="action_unfavorite">Remove from Favorites</string>
+    <string name="action_retry">Retry</string>
+    <string name="action_search_language">Search 100+ languages...</string>
+
+    <!-- Placeholders & Hints -->
+    <string name="hint_enter_text">Enter text, word, or paragraph to translate...</string>
+    <string name="hint_search_dictionary">Type any word to look up definitions &amp; audio...</string>
+    <string name="hint_search_history">Search past translations...</string>
+    <string name="hint_search_favorites">Search saved phrases...</string>
+
+    <!-- Permissions -->
+    <string name="perm_mic_title">Microphone Access Needed</string>
+    <string name="perm_mic_desc">Crossbow Translator uses the microphone for real-time speech recognition and bilingual conversations.</string>
+    <string name="perm_camera_title">Camera Access Needed</string>
+    <string name="perm_camera_desc">Crossbow Translator needs camera access to capture signs, menus, and documents for instant OCR translation.</string>
+    <string name="perm_grant">Grant Permission</string>
+
+    <!-- Offline & Network -->
+    <string name="network_offline_banner">You are currently offline. Access saved favorites, history, and practice vocabulary.</string>
+    <string name="network_required_msg">An active internet connection is required for live cloud translation.</string>
+</resources>
