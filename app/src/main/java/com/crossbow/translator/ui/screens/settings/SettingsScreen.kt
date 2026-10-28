@@ -303,6 +303,37 @@ fun SettingsScreen(
                     Text("App Version", fontWeight = FontWeight.Medium)
                     Text("1.0.0 (Precision Release)", color = MaterialTheme.colorScheme.onSurfaceVariant)
                 }
+
+                Box(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(1.dp)
+                        .background(MaterialTheme.colorScheme.outline.copy(alpha = 0.1f))
+                )
+
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(vertical = 10.dp),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Text("Developer", fontWeight = FontWeight.Medium)
+                    Text("Made by Raj Nagla", color = BrandIndigo, fontWeight = FontWeight.SemiBold)
+                }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            Box(
+                modifier = Modifier.fillMaxWidth(),
+                contentAlignment = Alignment.Center
+            ) {
+                Text(
+                    text = "Made by Raj Nagla",
+                    style = MaterialTheme.typography.bodySmall,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f)
+                )
             }
 
             Spacer(modifier = Modifier.height(24.dp))

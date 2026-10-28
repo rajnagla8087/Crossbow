@@ -2,6 +2,7 @@
   "name": "crossbow-translator-backend",
   "version": "1.0.0",
   "description": "Secure API Proxy Backend for Crossbow Translator",
+  "author": "Raj Nagla",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
