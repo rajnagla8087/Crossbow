@@ -143,5 +143,5 @@ This project is licensed under the Apache 2.0 License.
 ---
 
 ## 👨‍💻 Author
-Made by Raj Nagla
+Made with ❤️ by [Raj Nagla](https://github.com/rajnagla8087)
 

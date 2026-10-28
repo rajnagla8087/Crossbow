@@ -34,3 +34,9 @@ This backend service acts as a secure intermediary between the Crossbow Translat
    In the Android App **Settings > Secure API Backend**, enter:
    - For Android Emulator: `http://10.0.2.2:3000/`
    - For Physical Device: `http://<YOUR_COMPUTER_IP>:3000/` or your deployed HTTPS URL (e.g. Railway, Render, GCP, AWS).
+
+---
+
+## 👨‍💻 Author
+Made with ❤️ by [Raj Nagla](https://github.com/rajnagla8087)
+

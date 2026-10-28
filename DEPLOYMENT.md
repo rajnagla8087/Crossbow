@@ -128,3 +128,9 @@ apksigner sign --ks crossbow-release.jks --ks-key-alias crossbow --out app-relea
 | `GOOGLE_TRANSLATE_API_KEY` | Optional | Free MyMemory Engine | Optional Google Cloud Translation API key |
 | `DEEPL_API_KEY` | Optional | Free MyMemory Engine | Optional DeepL Pro or Free API key |
 | `LIBRETRANSLATE_URL` | Optional | None | Self-hosted LibreTranslate URL |
+
+---
+
+## 👨‍💻 Author
+Made with ❤️ by [Raj Nagla](https://github.com/rajnagla8087)
+

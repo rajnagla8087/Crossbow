@@ -102,3 +102,9 @@ If you wish to route translations through private Google Cloud or DeepL API cred
 4. In Crossbow Translator, go to **Settings > Secure API Backend** and set:
    - For Android Emulator: `http://10.0.2.2:3000/`
    - For Physical Device: `http://<YOUR_LAN_IP>:3000/` or your cloud URL.
+
+---
+
+## 👨‍💻 Author
+Made with ❤️ by [Raj Nagla](https://github.com/rajnagla8087)
+
